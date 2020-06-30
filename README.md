@@ -50,6 +50,7 @@ cd kokodir
 ./koko
 ```
 
+优化
 
 ## 构建docker镜像
 
