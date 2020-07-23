@@ -54,8 +54,9 @@ jobs:
         id: get_tag
         run: |
           pwd
-          ls .
-          ls ./release
+          echo "------" && ls .
+          echo ">>>>>>>>" && ls ./release
+          echo "#############"
           TAG=$(basename ${GITHUB_REF})
           echo "::set-output name=TAG::$TAG"
       - name: upload to oss
