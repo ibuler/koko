@@ -53,6 +53,9 @@ jobs:
       - name: Get Tag
         id: get_tag
         run: |
+          pwd
+          ls .
+          ls ./release
           TAG=$(basename ${GITHUB_REF})
           echo "::set-output name=TAG::$TAG"
       - name: upload to oss
@@ -60,7 +63,7 @@ jobs:
         env:
           TAG: ${{ steps.get_tag.outputs.TAG }}
         with:
-          ossArgs: "cp -r -u ./release/ oss://jms-pkg/test/${{ steps.get_tag.outputs.TAG }}"
+          ossArgs: "cp -r -u ./release oss://jms-pkg/test/${{ steps.get_tag.outputs.TAG }}"
           accessKey: ${{ secrets.OSS_AK }}
           accessSecret: ${{ secrets.OSS_SK }}
           endpoint: oss-cn-beijing.aliyuncs.com
