@@ -50,12 +50,12 @@ jobs:
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
           upload_url: ${{ needs.create-realese.outputs.upload_url }}
-      - name: debug it
-        run: pwd && ls .
       - name: upload to oss
         uses: go-choppy/ossutil-github-action@master
+        env:
+          TAG: ${{ steps.get_version.outputs.TAG }}
         with:
-          ossArgs: 'cp -r -u ./ oss://jms-pkg/test'
+          ossArgs: 'cp -r -u ./release/ oss://jms-pkg/test/${TAG}'
           accessKey: ${{ secrets.OSS_AK }}
           accessSecret: ${{ secrets.OSS_SK }}
           endpoint: oss-cn-beijing.aliyuncs.com
