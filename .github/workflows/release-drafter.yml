@@ -50,10 +50,15 @@ jobs:
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
           upload_url: ${{ needs.create-realese.outputs.upload_url }}
+      - name: Get Tag
+          id: get_tag
+          run: |
+            TAG=$(basename ${GITHUB_REF})
+            echo "::set-output name=TAG::$TAG"
       - name: upload to oss
         uses: go-choppy/ossutil-github-action@master
         env:
-          TAG: ${{ steps.get_version.outputs.TAG }}
+          TAG: ${{ steps.get_tag.outputs.TAG }}
         with:
           ossArgs: "cp -r -u ./release/ oss://jms-pkg/test/${TAG}"
           accessKey: ${{ secrets.OSS_AK }}
