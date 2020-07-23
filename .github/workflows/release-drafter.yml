@@ -60,7 +60,7 @@ jobs:
         env:
           TAG: ${{ steps.get_tag.outputs.TAG }}
         with:
-          ossArgs: "cp -r -u ./release/ oss://jms-pkg/test/${TAG}"
+          ossArgs: "cp -r -u ./release/ oss://jms-pkg/test/${{ steps.get_tag.outputs.TAG }}"
           accessKey: ${{ secrets.OSS_AK }}
           accessSecret: ${{ secrets.OSS_SK }}
           endpoint: oss-cn-beijing.aliyuncs.com
