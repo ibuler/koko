@@ -1,0 +1,16 @@
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  test-check-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check issue now
+        uses: jumpserver/action-issues-alert@master
+        with:
+          repo: jumpserver/jumpserver
+          hook: ${{ secrets.WECHAT_GROUP_WEB_HOOK }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
