@@ -12,5 +12,3 @@ jobs:
         with:
           repo: jumpserver/jumpserver
           hook: ${{ secrets.WECHAT_GROUP_WEB_HOOK }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
