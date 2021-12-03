@@ -12,5 +12,18 @@ jobs:
         with:
           repo: jumpserver/jumpserver
           hook: ${{ secrets.WECHAT_GROUP_WEB_HOOK }}
+          type: recent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-check-inactive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check issue inactive now
+        uses: jumpserver/action-issues-alert@master
+        with:
+          repo: jumpserver/jumpserver
+          hook: ${{ secrets.WECHAT_GROUP_WEB_HOOK }}
+          type: inactive
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
