@@ -7,9 +7,8 @@ name: Add issues workflow labels
 jobs:
   add-label-if-is-author:
     runs-on: ubuntu-latest
-    if: |
-      ${{ github.event.comment.issue.user.id == github.event.comment.user.id }}
-      && ${{ !github.event.comment.issue.pull_request }}
+    if: ${{ github.event.comment.issue.user.id == github.event.comment.user.id }} \
+      && ${{ !github.event.comment.issue.pull_request }} \
       && ${{ github.event.comment.issue.state == 'open' }}
     steps:
       - name: Add require handle label
@@ -24,15 +23,10 @@ jobs:
           actions: 'remove-labels'
           labels: '状态:待反馈'
 
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-
   add-label-if-not-author:
     runs-on: ubuntu-latest
-    if: |
-      ${{ github.event.comment.issue.user.id != github.event.comment.user.id }}
-      && ${{ !github.event.comment.issue.pull_request }}
+    if: ${{ github.event.comment.issue.user.id != github.event.comment.user.id }} \
+      && ${{ !github.event.comment.issue.pull_request }} \
       && ${{ github.event.comment.issue.state == 'open' }}
     steps:
       - name: Add require replay label
@@ -47,6 +41,9 @@ jobs:
           actions: 'remove-labels'
           labels: '状态:待处理'
 
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+  debug-msg:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
