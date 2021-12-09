@@ -24,6 +24,10 @@ jobs:
           actions: 'remove-labels'
           labels: '状态:待反馈'
 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+
   add-label-if-not-author:
     runs-on: ubuntu-latest
     if: |
@@ -42,3 +46,7 @@ jobs:
         with:
           actions: 'remove-labels'
           labels: '状态:待处理'
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}

@@ -1,28 +1,42 @@
 on:
-  issues:
-    types:
-      - opened
+  issue_comment:
+    types: [ created ]
+
+name: Add issues workflow labels
 
 jobs:
-  test-check-issues:
+  add-label-if-is-author:
     runs-on: ubuntu-latest
+    if: ${{ github.event.comment.issue.user.id == github.event.comment.user.id }} \
+      && ${{ !github.event.comment.issue.pull_request }} \
+      && ${{ github.event.comment.issue.state == 'open' }}
     steps:
-      - name: Check issue now
-        uses: jumpserver/action-issues-alert@master
+      - name: Add require handle label
+        uses: actions-cool/issues-helper@v2
         with:
-          repo: jumpserver/jumpserver
-          hook: ${{ secrets.WECHAT_GROUP_WEB_HOOK }}
-          type: recent
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          actions: 'add-labels'
+          labels: '状态:待处理'
 
-  test-check-inactive:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check issue inactive now
-        uses: jumpserver/action-issues-alert@master
+      - name: Remove require reply label
+        uses: actions-cool/issues-helper@v2
         with:
-          hook: ${{ secrets.WECHAT_GROUP_WEB_HOOK }}
-          type: inactive
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          actions: 'remove-labels'
+          labels: '状态:待反馈'
+
+  add-label-if-not-author:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.comment.issue.user.id != github.event.comment.user.id }} \
+      && ${{ !github.event.comment.issue.pull_request }} \
+      && ${{ github.event.comment.issue.state == 'open' }}
+    steps:
+      - name: Add require replay label
+        uses: actions-cool/issues-helper@v2
+        with:
+          actions: 'add-labels'
+          labels: '状态:待反馈'
+
+      - name: Remove require handle label
+        uses: actions-cool/issues-helper@v2
+        with:
+          actions: 'remove-labels'
+          labels: '状态:待处理'
