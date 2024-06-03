@@ -7,3 +7,6 @@ $
 ao
 bbaa
 asdf
+ooooooo
+
+wo
