@@ -18,5 +18,4 @@ jobs:
       - name: Run generic handler
         uses: jumpserver/action-generic-handler@dev
         env:
-          GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
           I18N_TOKEN: ${{ secrets.I18N_TOKEN }}
