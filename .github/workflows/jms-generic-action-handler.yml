@@ -12,11 +12,10 @@ jobs:
 
       - shell: bash
         env:
-          SUPER_SECRET: ${{ secrets.I18N_TOKEN }}
+          I18N_TOKEN: ${{ secrets.I18N_TOKEN }}
         run: |
           echo "$I18N_TOKEN"
       - name: Run generic handler
         uses: jumpserver/action-generic-handler@dev
         env:
-          GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
           I18N_TOKEN: ${{ secrets.I18N_TOKEN }}
