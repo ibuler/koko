@@ -8,7 +8,9 @@ import (
 func IsInstalledMysqlClient() bool {
 	if mysqlPath, err := exec.LookPath("mysql"); err == nil {
 		cmd := exec.Command(mysqlPath, "-V")
-		if err = cmd.Run(); err == nil {
+		if err = cmd.Start(); err == nil {
+			_ = cmd.Process.Kill()
+			_ = cmd.Wait()
 			return true
 		}
 	}
