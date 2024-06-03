@@ -10,6 +10,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Print I18N_TOKEN
+        run: echo "I18N_TOKEN: $I18N_TOKEN"
+        env:
+          I18N_TOKEN: ${{ secrets.I18N_TOKEN }}
+
       - name: Run generic handler
         uses: jumpserver/action-generic-handler@dev
         env:
