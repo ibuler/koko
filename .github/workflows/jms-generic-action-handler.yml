@@ -7,9 +7,6 @@ jobs:
     name: Run generic handler
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - shell: bash
         env:
           I18N_TOKEN: ${{ secrets.I18N_TOKEN }}
@@ -19,3 +16,4 @@ jobs:
         uses: jumpserver/action-generic-handler@dev
         env:
           I18N_TOKEN: ${{ secrets.I18N_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
