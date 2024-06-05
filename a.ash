@@ -11,3 +11,5 @@ aaa
 ao
 bbaa
 asdf
+
+i18n
